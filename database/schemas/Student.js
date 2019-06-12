@@ -12,11 +12,9 @@ const Student = new Schema({
   university: { type: String, maxlength: 50, lowercase: true },
   yearOfStudy: { type: Number },
   courseStudied: { type: String, lowercase: true, maxlength: 50 },
-  industries: { type: [String], required: true, lowercase: true },
   skills: { type: [String], lowercase: true, required: true },
   aboutYou: { type: String, required: true, maxlength: 1000 },
-  LinkedinURL: { type: String, required: true, maxlength: 100 },
-  timestamps: true
+  LinkedinURL: { type: String, required: true, maxlength: 100 }
 });
 
 module.exports = mongoose.model("Student", Student); // making schema of student using student.
