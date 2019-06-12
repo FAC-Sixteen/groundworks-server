@@ -15,8 +15,7 @@ const Student = new Schema({
   industries: { type: [String], required: true, lowercase: true },
   skills: { type: [String], lowercase: true, required: true },
   aboutYou: { type: String, required: true, maxlength: 1000 },
-  LinkedinURL: { type: String, required: true, maxlength: 100 },
-  timestamps: true
+  LinkedinURL: { type: String, required: true, maxlength: 100 }
 });
 
 module.exports = mongoose.model("Student", Student); // making schema of student using student.
