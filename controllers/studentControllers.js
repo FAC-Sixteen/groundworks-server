@@ -12,12 +12,17 @@ exports.postStudentSignUp = async (req, res) => {
     yearOfStudy: req.body.yearOfStudy,
     courseStudied: req.body.courseStudied,
     aboutYou: req.body.aboutYou,
-    LinkedinURL: req.body.LinkedinURL
+    LinkedinURL: req.body.LinkedinURL,
   });
   try {
     const newStudent = await studentData.save(); // wait for studentData before saving and storing in newStudent
-    response.json(newStudent);
+    console.log("req1", req.body);
+    console.log("res1", res.body);
+    res.json(newStudent);
   } catch (error) {
-    response.json({ message: error });
+    // console.log(req);
+    console.log("req", req.body);
+    console.log("res", res.body);
+    res.json({ message: error });
   }
 };
