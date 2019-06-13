@@ -1,6 +1,18 @@
 const Student = require("../database/schemas/Student");
 
+//get all student documents from database
+exports.getAllStudents = async (req, res) => {
+  try {
+    const students = await Student.find();
+    res.json(students);
+  } catch (err) {
+    res.json({ message: err });
+  }
+};
+
+//add new student document to database
 exports.postStudentSignUp = async (req, res) => {
+  try {
   // studentData is assigning object contain info to various variables i.e. firstName etc.
   const studentData = new Student({
     firstName: req.body.firstName,
@@ -12,17 +24,12 @@ exports.postStudentSignUp = async (req, res) => {
     yearOfStudy: req.body.yearOfStudy,
     courseStudied: req.body.courseStudied,
     aboutYou: req.body.aboutYou,
-    LinkedinURL: req.body.LinkedinURL,
+    skills: req.body.skills,
+    LinkedinURL: req.body.LinkedinURL
   });
-  try {
     const newStudent = await studentData.save(); // wait for studentData before saving and storing in newStudent
-    console.log("req1", req.body);
-    console.log("res1", res.body);
     res.json(newStudent);
   } catch (error) {
-    // console.log(req);
-    console.log("req", req.body);
-    console.log("res", res.body);
     res.json({ message: error });
   }
 };
