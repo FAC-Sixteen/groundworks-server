@@ -20,8 +20,8 @@ app.use("/student", studentRouter); // sends the request to the router in roots 
 app.use("/client", clientRouter); // sends the request to the router in roots file.
 
 //router
-app.get("/", (req, res) => {
-  res.send("Hello FAC16");
-});
+// app.get("/", (req, res) => {
+//   res.send("Hello FAC16");
+// });
 
 module.exports = app; // exports the app func.
