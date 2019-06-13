@@ -13,4 +13,7 @@ const Brief = new Schema({
   additionalInfo: { type: String, required: true, maxlength: 1500 },
 });
 
+Brief.set('timestamps', true)
+Brief.set('validateBeforeSave', false)
+
 module.exports = mongoose.model("Brief", Brief);
