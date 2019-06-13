@@ -15,9 +15,9 @@ const Student = new Schema({
   skills: { type: [String], lowercase: true, required: true },
   aboutYou: { type: String, required: true, maxlength: 1000 },
   LinkedinURL: { type: String, required: true, maxlength: 100 },
+}, { //set other Schema options here
+  timestamps: true,  //gives created_at and updated_at
+  validateBeforeSave: false  //pause requirements during early development
 });
-//set other Schema options here
-Student.set('timestamps', true)   //gives created_at and updated_at
-Student.set('validateBeforeSave', false) //pause requirements during early development
 
 module.exports = mongoose.model("Student", Student); // create schema

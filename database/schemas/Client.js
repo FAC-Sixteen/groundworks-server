@@ -10,6 +10,9 @@ const Client = new Schema({
   jobTitle: { type: String, required: true, maxlength: 50 },
   companyName: { type: String, required: true, maxlength: 50 },
   companyUrl: { type: String, required: true, maxlength: 100 },
+}, {
+  timestamps: true,
+  validateBeforeSave: false
 });
 
 Client.set('timestamps', true)

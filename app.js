@@ -18,7 +18,8 @@ app.use(cors()); // middleware, Cross origin resouce sharing. So you can get dat
 app.use(express.json()); // middleware to convert automatically to JSON.
 app.use(bodyParser.urlencoded({ extended: false })); // Middleware for parsing.
 app.use(logger("dev")); //morgan logger, gives logging info
-app.use(express.static(path.join(__dirname, "..", "public"))); // Will server everything in public folder, static files
+app.use(express.static(path.join(__dirname, "..", "public"),{ maxAge: '30d' }));
+// Serve public folder static files, and cache for 30days
 
 app.use("/student", studentRouter); // sends the request to the router in roots file.
 app.use("/client", clientRouter); // sends the request to the router in roots file.
