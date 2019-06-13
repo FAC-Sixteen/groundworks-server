@@ -16,7 +16,4 @@ const Brief = new Schema({
   validateBeforeSave: false
 });
 
-Brief.set('timestamps', true)
-Brief.set('validateBeforeSave', false)
-
 module.exports = mongoose.model("Brief", Brief);

@@ -15,7 +15,4 @@ const Client = new Schema({
   validateBeforeSave: false
 });
 
-Client.set('timestamps', true)
-Client.set('validateBeforeSave', false)
-
 module.exports = mongoose.model("Client", Client);
