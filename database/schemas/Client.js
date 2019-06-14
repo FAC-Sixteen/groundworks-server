@@ -9,8 +9,7 @@ const Client = new Schema({
   phoneNumber: { type: String, required: true, maxlength: 20 },
   jobTitle: { type: String, required: true, maxlength: 50 },
   companyName: { type: String, required: true, maxlength: 50 },
-  companyUrl: { type: String, required: true, maxlength: 100 },
-  timestamps: true
+  companyUrl: { type: String, required: true, maxlength: 100 }
 });
 
 module.exports = mongoose.model("Client", Client);

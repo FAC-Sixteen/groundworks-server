@@ -12,7 +12,7 @@ exports.postStudentSignUp = async (req, res) => {
     yearOfStudy: req.body.yearOfStudy,
     courseStudied: req.body.courseStudied,
     aboutYou: req.body.aboutYou,
-    LinkedinURL: req.body.LinkedinURL,
+    LinkedinURL: req.body.LinkedinURL
   });
   try {
     const newStudent = await studentData.save(); // wait for studentData before saving and storing in newStudent
