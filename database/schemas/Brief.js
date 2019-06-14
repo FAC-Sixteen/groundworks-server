@@ -11,6 +11,9 @@ const Brief = new Schema({
   projectPrice: { type: Number, required: true },
   studentSkills: { type: [String], lowercase: true, required: true },
   additionalInfo: { type: String, required: true, maxlength: 1500 },
+}, {
+  timestamps: true,
+  validateBeforeSave: false
 });
 
 module.exports = mongoose.model("Brief", Brief);

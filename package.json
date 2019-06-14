@@ -4,17 +4,21 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "compression": "1.7.4",
     "cors": "^2.8.5",
     "env2": "^2.2.2",
     "express": "^4.17.1",
+    "helmet": "3.18.0",
     "mongoose": "^5.5.12",
     "morgan": "^1.9.1"
   },
   "scripts": {
     "start": "node ./index.js",
+    "dev": "nodemon ./index.js",
     "devStart": "concurrently \"cd ./server && yarn start\" \"cd ./client && yarn start\""
   },
   "devDependencies": {
-    "concurrently": "^4.1.0"
+    "concurrently": "^4.1.0",
+    "nodemon": "1.19.1"
   }
 }
