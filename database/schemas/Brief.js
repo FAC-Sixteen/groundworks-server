@@ -1,4 +1,5 @@
 const mongoose = require("mongoose"); // calling mongoose
+
 const Schema = mongoose.Schema; //accessing Schema from Mongoose Object.
 
 const Brief = new Schema({

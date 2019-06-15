@@ -1,4 +1,5 @@
 const mongoose = require("mongoose"); // Calling Mongoose.
+
 const Schema = mongoose.Schema; //accessing Schema from Mongoose Object.
 
 // This is specifying the student table and content.
