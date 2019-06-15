@@ -1,5 +1,5 @@
 const app = require('./app');
-const dbInit = require('./database/mongoConnect.js')
+const dbInit = require('./database/mongoConnect.js');
 
 const port = process.env.PORT || 8080; //Setting server port
 
