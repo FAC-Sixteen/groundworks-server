@@ -1,4 +1,5 @@
 const Client = require("../database/schemas/Client");
+const Brief = require("../database/schemas/Brief");
 
 //get all client documents from database
 exports.getAllClients = async (req, res) => {
@@ -28,5 +29,35 @@ exports.postClientSignUp = async (req, res) => {
     res.json(newClient);
   } catch (error) {
     res.json({ message: error });
+  }
+};
+
+exports.postClientNewBrief = async (req, res) => {
+  console.log("req", req.body);
+  try {
+    const newBriefData = new Brief({
+      companyName: req.body.companyName,
+      contactPerson: req.body.contactPerson,
+      projectName: req.body.projectName,
+      projectBrief: req.body.projectBrief,
+      projectDeadline: req.body.projectDeadline,
+      estimatedWorkload: req.body.estimatedWorkload,
+      projectPrice: req.body.projectPrice,
+      studentSkills: req.body.studentSkills,
+      additionalInfo: req.body.additionalInfo
+    });
+    const newBrief = await newBriefData.save();
+    res.json(newBrief);
+  } catch (error) {
+    res.json({ message: error });
+  }
+};
+
+exports.getAllBriefs = async (req, res) => {
+  try {
+    const briefs = await Brief.find();
+    res.json(briefs);
+  } catch (err) {
+    res.json({ message: err });
   }
 };
