@@ -8,4 +8,7 @@ router.get("/all", clientController.getAllClients);
 router.get('/get-client/:clientID', clientController.client_findById)
 router.post("/sign-up", clientController.postClientSignUp);
 
+router.get("/all-briefs", clientController.getAllBriefs);
+router.post("/new-brief", clientController.postClientNewBrief);
+
 module.exports = router;
