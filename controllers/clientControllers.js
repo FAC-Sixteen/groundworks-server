@@ -1,5 +1,6 @@
 const Client = require("../database/schemas/Client");
 const Brief = require("../database/schemas/Brief");
+const Register = require("../database/schemas/Register");
 
 //get all client documents from database
 exports.getAllClients = async (req, res) => {
@@ -67,6 +68,40 @@ exports.client_findById = async (req, res) => {
     console.log(req.params);
     const profile = await Client.findById(req.params.clientID);
     res.json(profile);
+  } catch (err) {
+    res.json({ message: err });
+  }
+};
+
+//Ryan...
+exports.postRegisterClient = async (req, res) => {
+  console.log("req", req.body);
+  try {
+    const newRegisterData = new Register({
+      name: req.body.name,
+      email: req.body.email,
+      password: req.body.password
+    });
+    const newRegister = await newRegisterData.save();
+    res.json(newRegister);
+  } catch (error) {
+    res.json({ message: error });
+  }
+};
+
+exports.getAllClientRegisters = async (req, res) => {
+  try {
+    const registers = await Register.find();
+    res.json(registers);
+  } catch (err) {
+    res.json({ message: err });
+  }
+};
+
+exports.getAllBriefs = async (req, res) => {
+  try {
+    const briefs = await Brief.find();
+    res.json(briefs);
   } catch (err) {
     res.json({ message: err });
   }

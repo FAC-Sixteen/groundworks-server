@@ -1,4 +1,5 @@
 const Student = require("../database/schemas/Student");
+const Register = require("../database/schemas/Register");
 
 //get all student documents from database
 exports.getAllStudents = async (req, res) => {
@@ -14,13 +15,12 @@ exports.getAllStudents = async (req, res) => {
 //IMPORTANT: this will delete the entire database.  Remove before deployment.
 exports.deleteAllStudents = async (req, res) => {
   try {
-    const students = await Student.deleteMany({__v: 0},
-      function (err) {});
+    const students = await Student.deleteMany({ __v: 0 }, function(err) {});
     res.json(students);
   } catch (err) {
     res.json({ message: err });
   }
-}
+};
 
 //add new student document to database
 exports.postStudentSignUp = async (req, res) => {
@@ -58,9 +58,37 @@ exports.student_findById = async (req, res) => {
 
 exports.student_update = async (req, res) => {
   try {
-    const update = await Student.findByIdAndUpdate(req.params.studentID, req.body.firstName);//update
+    const update = await Student.findByIdAndUpdate(
+      req.params.studentID,
+      req.body.firstName
+    ); //update
     res.json(update);
   } catch (err) {
-    res.json({ message: err});
+    res.json({ message: err });
   }
-}
+};
+
+//Ryan....
+exports.postRegisterStudent = async (req, res) => {
+  console.log("req", req.body);
+  try {
+    const newStudentData = new Register({
+      name: req.body.name,
+      email: req.body.email,
+      password: req.body.password
+    });
+    const newRegisterStudent = await newStudentData.save();
+    res.json(newRegisterStudent);
+  } catch (error) {
+    res.json({ message: error });
+  }
+};
+
+exports.getAllStudentRegisters = async (req, res) => {
+  try {
+    const studentsRegisters = await Register.find();
+    res.json(studentsRegisters);
+  } catch (err) {
+    res.json({ message: err });
+  }
+};
