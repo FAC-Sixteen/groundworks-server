@@ -18,7 +18,7 @@ const Student = new Schema({
   LinkedinURL: { type: String, required: true, maxlength: 100 },
 }, { //set other Schema options here
   timestamps: true,  //gives created_at and updated_at
-  validateBeforeSave: false  //pause requirements during early development
+  // validateBeforeSave: false  //pause requirements during early development
 });
 
 module.exports = mongoose.model("Student", Student); // create schema
