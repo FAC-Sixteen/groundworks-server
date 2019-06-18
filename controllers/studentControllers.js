@@ -58,11 +58,7 @@ exports.student_findById = async (req, res) => {
 
 exports.student_update = async (req, res) => {
   try {
-    const update = await Student
-    .findByIdAndUpdate(req.params.studentID, req.body, {new: true}, (err, update) => {
-      if (err) return res.status(500).send(err);
-      return res.send(todo)
-    });//update
+    const update = await Student.findByIdAndUpdate(req.params.studentID, req.body.firstName);//update
     res.json(update);
   } catch (err) {
     res.json({ message: err});
