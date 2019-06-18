@@ -61,3 +61,13 @@ exports.getAllBriefs = async (req, res) => {
     res.json({ message: err });
   }
 };
+
+exports.client_findById = async (req, res) => {
+  try {
+    console.log(req.params);
+    const profile = await Client.findById(req.params.clientID);
+    res.json(profile);
+  } catch (err) {
+    res.json({ message: err });
+  }
+};
