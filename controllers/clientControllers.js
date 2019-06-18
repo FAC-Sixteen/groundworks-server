@@ -30,3 +30,12 @@ exports.postClientSignUp = async (req, res) => {
     res.json({ message: error });
   }
 };
+
+exports.getClientById = async (req, res) => {
+  try {
+    const clientProfile = await Client.findById(req.params.clientID)
+    res.json(clientProfile);
+  } catch (error){
+    res.json({ message: error});
+  }
+}
