@@ -8,6 +8,7 @@ const Client = new Schema({
   email: { type: String, required: true, maxlength: 50, unique: true },
   password: { type: String, required: true, maxlength: 50 },
   phoneNumber: { type: String, required: true, maxlength: 20 },
+
   jobTitle: { type: String, required: true, maxlength: 50 },
   companyName: { type: String, required: true, maxlength: 50 },
   companyUrl: { type: String, required: true, maxlength: 100 },
