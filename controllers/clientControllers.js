@@ -1,11 +1,9 @@
-const Client = require("../database/schemas/Client");
 const Brief = require("../database/schemas/Brief");
-const Register = require("../database/schemas/Register");
-
+const User = require("../database/schemas/User");
 //get all client documents from database
 exports.getAllClients = async (req, res) => {
   try {
-    const clients = await Client.find();
+    const clients = await User.find();
     res.json(clients);
   } catch (err) {
     res.json({ message: err });
@@ -16,12 +14,12 @@ exports.getAllClients = async (req, res) => {
 exports.postClientSignUp = async (req, res) => {
   try {
     // clientData is assigning object contain info to various variables i.e. firstName etc.
-    const clientData = new Client({
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
+    const clientData = new User({
+      userName: req.body.firstName,
       email: req.body.email,
       password: req.body.password,
       phoneNumber: req.body.phoneNumber,
+      userType: req.body.userType,
       jobTitle: req.body.jobTitle,
       companyName: req.body.companyName,
       companyUrl: req.body.companyUrl
@@ -66,7 +64,7 @@ exports.getAllBriefs = async (req, res) => {
 exports.client_findById = async (req, res) => {
   try {
     console.log(req.params);
-    const profile = await Client.findById(req.params.clientID);
+    const profile = await User.findById(req.params.clientID);
     res.json(profile);
   } catch (err) {
     res.json({ message: err });
@@ -77,10 +75,11 @@ exports.client_findById = async (req, res) => {
 exports.postRegisterClient = async (req, res) => {
   console.log("req", req.body);
   try {
-    const newRegisterData = new Register({
-      name: req.body.name,
+    const newRegisterData = new User({
+      userName: req.body.userName,
       email: req.body.email,
-      password: req.body.password
+      password: req.body.password,
+      userType: req.body.userType
     });
     const newRegister = await newRegisterData.save();
     res.json(newRegister);
@@ -91,7 +90,7 @@ exports.postRegisterClient = async (req, res) => {
 
 exports.getAllClientRegisters = async (req, res) => {
   try {
-    const registers = await Register.find();
+    const registers = await User.find();
     res.json(registers);
   } catch (err) {
     res.json({ message: err });
