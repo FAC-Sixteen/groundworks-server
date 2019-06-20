@@ -8,14 +8,23 @@ const logger = require("morgan");
 
 const studentRouter = require("./routes/studentRouter");
 const clientRouter = require("./routes/clientRouter");
-const briefRouter = require("./routes/briefRouter.js")
+const briefRouter = require("./routes/briefRouter.js");
 
 const app = express(); //  Initialize Express app
 
 app.use(compression()); //gzip compression, reduces size up to 70%
 // app.disable("x-powered-by"); // This is so people can't see what framework we are using.
 app.use(helmet()); //provides security against several types of attacks
-app.use(cors()); // middleware, Cross origin resouce sharing. So you can get data from different name or portal.
+app.use(
+  cors({
+    credentials: true,
+    origin: [
+      "http://localhost:8080",
+      "http://localhost:3000",
+      "https://objective-volhard-137078.netlify.com/"
+    ]
+  })
+); // middleware, Cross origin resouce sharing. So you can get data from different name or portal.
 app.use(express.json()); // middleware to convert automatically to JSON.
 app.use(bodyParser.urlencoded({ extended: false })); // Middleware for parsing.
 app.use(logger("dev")); //morgan logger, gives logging info
