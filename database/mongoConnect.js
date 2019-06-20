@@ -4,6 +4,8 @@ const env = require("env2")("./config.env"); // used to hide Keys
 module.exports = {
   mongoConnect: (callback) => {
 
+  mongoose.set('useFindAndModify', false); //findByIdAndUpdate API was updated, this silences error
+
   const options = {
     useNewUrlParser: true,  //Previous connection string parser deprecated
     autoIndex: true,  //for large production deployment: set to false

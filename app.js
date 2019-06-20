@@ -8,6 +8,7 @@ const logger = require("morgan");
 
 const studentRouter = require("./routes/studentRouter");
 const clientRouter = require("./routes/clientRouter");
+const briefRouter = require("./routes/briefRouter.js")
 
 const app = express(); //  Initialize Express app
 
@@ -25,6 +26,7 @@ app.use(
 
 app.use("/student", studentRouter); // sends the request to the router in roots file.
 app.use("/client", clientRouter); // sends the request to the router in roots file. //STARTS HERE AFTER POST FROM FE
+app.use("/brief", briefRouter);
 
 app.use((req, res, next) => {
   //error-handling any routes not covered above

@@ -5,8 +5,8 @@ const Schema = mongoose.Schema; //accessing Schema from Mongoose Object.
 // This is specifying the student table and content.
 //Some methods below are only specific to type String etc.
 const Student = new Schema({
-  firstName: { type: String, required: true, lowercase: true, maxlength: 50 },
-  lastName: { type: String, required: true, lowercase: true, maxlength: 50 },
+  firstName: { type: String, lowercase: true, maxlength: 50 },
+  lastName: { type: String, lowercase: true, maxlength: 50 },
   email: { type: String, required: true, maxlength: 50, unique: true },
   password: { type: String, required: true, maxlength: 50 },
   phoneNumber: { type: String, required: true, maxlength: 20 },
