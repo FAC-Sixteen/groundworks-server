@@ -1,4 +1,8 @@
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 const User = require("../database/schemas/User");
+const registerValidation = require('../authentication/validation');
+
 
 //get all student documents from database
 exports.getAllStudents = async (req, res) => {
@@ -67,9 +71,38 @@ exports.student_update = async (req, res) => {
   }
 };
 
-//Ryan....
 exports.postRegisterStudent = async (req, res) => {
   console.log("req", req.body);
+  try{
+    const validation = await registerValidation(req.body)
+    res.send(validation.error);
+
+  } catch (err) {
+    res.status(400).send(err);
+    return
+
+    // res.status(400).send(validation.error.details[0].message).send(err);
+  }
+
+
+  const emailExists = await User.findOne({ email: req.body.email});
+
+  if(emailExists) return res.status(400).send('Email already exists');
+
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(req.body.password, salt);
+
+  const user = new User({ userName: req.body.userName, email:req.body.email, password: hashedPassword });
+
+  try {
+    const savedUser = await user.save();
+    res.send({ user:user._id})
+  } catch(err) {
+    res.status(400).send(err);
+    return
+  }
+
+
   try {
     const newStudentData = new User({
       userName: req.body.userName,
@@ -81,6 +114,7 @@ exports.postRegisterStudent = async (req, res) => {
     res.json(newRegisterStudent);
   } catch (error) {
     res.json({ message: error });
+    return
   }
 };
 
