@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const User = require("../database/schemas/User");
-// const registerValidation = require('../authentication/validation');
+const registerValidation = require('../authentication/validation');
 const encryption = require('../authentication/encryption');
 const authentication = require('../authentication/validation');
 
@@ -106,9 +106,7 @@ exports.postRegisterStudent = async (req, res) => {
   }
 
   try {
-    const newStudentData = new User({  // const [details, setDetails] = useContext(LoginContext); //moved inside submit function
-    //
-    // // props.history.push("/StudentDashboard");
+    const newStudentData = new User({
       userName: req.body.userName,
       email: req.body.email,
       password: req.body.password,
