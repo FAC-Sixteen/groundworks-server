@@ -1,8 +1,9 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const User = require("../database/schemas/User");
-const registerValidation = require('../authentication/validation');
-
+// const registerValidation = require('../authentication/validation');
+const encryption = require('../authentication/encryption');
+const authentication = require('../authentication/validation');
 
 //get all student documents from database
 exports.getAllStudents = async (req, res) => {
@@ -28,11 +29,13 @@ exports.deleteAllStudents = async (req, res) => {
 //add new student document to database
 exports.postStudentSignUp = async (req, res) => {
   try {
+    const hashedPass = await encryption.hashPassword(req.body.password)
+    console.log("Hashed pass: ", hashedPass);
     // studentData is assigning object contain info to various variables i.e. firstName etc.
     const studentData = new User({
       userName: req.body.userName,
       email: req.body.email,
-      password: req.body.password,
+      password: hashedPass,
       phoneNumber: req.body.phoneNumber,
       userType: req.body.userType,
       university: req.body.university,
@@ -102,9 +105,10 @@ exports.postRegisterStudent = async (req, res) => {
     return
   }
 
-
   try {
-    const newStudentData = new User({
+    const newStudentData = new User({  // const [details, setDetails] = useContext(LoginContext); //moved inside submit function
+    //
+    // // props.history.push("/StudentDashboard");
       userName: req.body.userName,
       email: req.body.email,
       password: req.body.password,
@@ -126,3 +130,15 @@ exports.getAllStudentRegisters = async (req, res) => {
     res.json({ message: err });
   }
 };
+
+exports.userValidator = (req, res) => {
+  try {
+    const userInfo = {
+      email: req.body.email,
+      password: req.body.password
+    }
+    authentication.validator(userInfo, res);
+  } catch (err) {
+    res.json({ message: err })
+  }
+}

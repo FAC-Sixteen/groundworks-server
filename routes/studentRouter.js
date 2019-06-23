@@ -9,6 +9,7 @@ router.get("/get-student/:studentID", studentController.student_findById); //wor
 router.delete("/delete-all", studentController.deleteAllStudents); //working. CAUTION:  deletes the entire database
 router.post("/sign-up", studentController.postStudentSignUp); //working.  call the postStudentSignUp function in the controller file.
 router.put("/student-update/:studentID", studentController.student_update);
+router.post("/login", studentController.userValidator);  //validation, session
 
 //register with student
 router.post("/join", studentController.postRegisterStudent);
