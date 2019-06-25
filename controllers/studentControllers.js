@@ -29,6 +29,9 @@ exports.deleteAllStudents = async (req, res) => {
 //add new student document to database
 exports.postStudentSignUp = async (req, res) => {
   try {
+    const emailExists = await User.findOne({ email: req.body.email});
+    if(emailExists) return res.status(400).send({msg: 'Email already exists'});
+
     const hashedPass = await encryption.hashPassword(req.body.password)
     console.log("Hashed pass: ", hashedPass);
     // studentData is assigning object contain info to various variables i.e. firstName etc.
@@ -82,8 +85,7 @@ exports.postRegisterStudent = async (req, res) => {
 
   } catch (err) {
     res.status(400).send(err);
-    return
-
+    // return
     // res.status(400).send(validation.error.details[0].message).send(err);
   }
 

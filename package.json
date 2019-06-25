@@ -22,8 +22,8 @@
   },
   "scripts": {
     "test": "jest  --watchAll --detectOpenHandles --forceExit",
-    "start": "node ./index.js",
-    "dev": "nodemon ./index.js"
+    "start": "node -r esm ./index.js",
+    "dev": "nodemon -r esm ./index.js"
   },
   "devDependencies": {
     "eslint": "5.16.0",
