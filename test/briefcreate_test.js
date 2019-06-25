@@ -22,7 +22,7 @@ describe("Creating documents", () => {
     newBrief
       .save() //takes some time and returns a promise
       .then(done => {
-        assert(!newBrief.isNew); //if poke is saved to db it is not new
+        assert(!newBrief.isNew); //if brief is saved to db it is not new
       })
       .catch(err => console.log("creates a brief error: ", err));
     done();

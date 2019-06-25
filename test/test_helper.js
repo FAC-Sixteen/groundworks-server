@@ -37,18 +37,3 @@ beforeEach(done => {
   });
   done();
 });
-//
-// beforeEach(done => {
-//   mongoose.connection.collections.clients.drop(() => {
-//     //this function runs after the drop is completed
-//     done(); //go ahead everything is done now.
-//   });
-// });
-
-// afterEach(done => {
-//   mongoose.connection.collections.briefs.drop(() => {
-//     //this function runs after the drop is completed
-//     //go ahead everything is done now.
-//   });
-//   done();
-// });
