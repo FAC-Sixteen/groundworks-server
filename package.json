@@ -22,6 +22,7 @@
     "yarn": "1.16.0"
   },
   "scripts": {
+    "test": "jest  --watchAll --detectOpenHandles --forceExit",
     "start": "node ./index.js",
     "dev": "nodemon ./index.js",
     "test": "nodemon --exec 'mocha -R min'"
@@ -31,6 +32,9 @@
     "eslint-config-airbnb-base": "13.1.0",
     "eslint-loader": "2.1.2",
     "eslint-plugin-import": "2.17.3",
-    "nodemon": "^1.19.1"
+    "nodemon": "^1.19.1",
+    "jest": "^24.8.0",
+    "mockingoose": "^2.13.1",
+    "supertest": "^4.0.2"
   }
 }
