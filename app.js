@@ -8,7 +8,7 @@ const logger = require("morgan");
 
 const studentRouter = require("./routes/studentRouter");
 const clientRouter = require("./routes/clientRouter");
-const briefRouter = require("./routes/briefRouter.js");
+const briefRouter = require("./routes/briefRouter");
 
 const app = express(); //  Initialize Express app
 

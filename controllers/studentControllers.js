@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const User = require("../database/schemas/User");
+const GWStudent = require('../database/schemas/GWStudent');
 const registerValidation = require('../authentication/validation');
 const encryption = require('../authentication/encryption');
 const authentication = require('../authentication/validation');
@@ -8,7 +9,7 @@ const authentication = require('../authentication/validation');
 //get all student documents from database
 exports.getAllStudents = async (req, res) => {
   try {
-    const students = await User.find();
+    const students = await GWStudent.find();
     res.json(students);
   } catch (err) {
     res.json({ message: err });
@@ -29,13 +30,13 @@ exports.deleteAllStudents = async (req, res) => {
 //add new student document to database
 exports.postStudentSignUp = async (req, res) => {
   try {
-    const emailExists = await User.findOne({ email: req.body.email});
+    const emailExists = await GWStudent.findOne({ email: req.body.email});
     if(emailExists) return res.status(400).send({msg: 'Email already exists'});
 
     const hashedPass = await encryption.hashPassword(req.body.password)
     console.log("Hashed pass: ", hashedPass);
     // studentData is assigning object contain info to various variables i.e. firstName etc.
-    const studentData = new User({
+    const studentData = new GWStudent({
       userName: req.body.userName,
       email: req.body.email,
       password: hashedPass,
@@ -46,7 +47,8 @@ exports.postStudentSignUp = async (req, res) => {
       courseStudied: req.body.courseStudied,
       skills: req.body.skills,
       aboutYou: req.body.aboutYou,
-      LinkedinURL: req.body.LinkedinURL
+      LinkedinURL: req.body.LinkedinURL,
+      photoURL: req.body.photoURL
     });
     const newStudent = await studentData.save(); // wait for studentData before saving and storing in newStudent
     res.json(newStudent);
@@ -58,7 +60,7 @@ exports.postStudentSignUp = async (req, res) => {
 exports.student_findById = async (req, res) => {
   try {
     console.log(req.params);
-    const profile = await User.findById(req.params.studentID);
+    const profile = await GWStudent.findById(req.params.studentID);
     res.json(profile);
   } catch (err) {
     res.json({ message: err });
