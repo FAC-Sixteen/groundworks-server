@@ -36,6 +36,9 @@ app.use(
 app.use("/student", studentRouter); // sends the request to the router in roots file.
 app.use("/client", clientRouter); // sends the request to the router in roots file. //STARTS HERE AFTER POST FROM FE
 app.use("/brief", briefRouter);
+app.use("/", (req, res) => {
+  res.json({ message: "Server up and running" });
+});
 
 app.use((req, res, next) => {
   //error-handling any routes not covered above
