@@ -8,7 +8,7 @@ const logger = require("morgan");
 
 const studentRouter = require("./routes/studentRouter");
 const clientRouter = require("./routes/clientRouter");
-const briefRouter = require("./routes/briefRouter.js");
+const briefRouter = require("./routes/briefRouter");
 
 const app = express(); //  Initialize Express app
 
@@ -27,7 +27,7 @@ app.use(
 ); // middleware, Cross origin resouce sharing. So you can get data from different name or portal.
 app.use(express.json()); // middleware to convert automatically to JSON.
 app.use(bodyParser.urlencoded({ extended: false })); // Middleware for parsing.
-app.use(logger("dev")); //morgan logger, gives logging info
+process.env.NODE_ENV !== "prod" && app.use(logger("dev")); //morgan logger, gives logging info
 app.use(
   express.static(path.join(__dirname, "..", "public"), { maxAge: "30d" })
 );
