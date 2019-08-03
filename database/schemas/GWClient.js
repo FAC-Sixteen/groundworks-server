@@ -17,7 +17,7 @@ const GWClient = new Schema(
     companyUrl: { type: String, maxlength: 100 },
     photoURL: { type: String, maxlength: 250 },
     newStudentMatches: { type: [String] },
-    totalHours: { type: Number },
+    totalHours: { type: Number }, //set default start with 0
 
     //jobs array for both Students and Clients:
     currentJobs: { type: [String] },

@@ -1,6 +1,6 @@
 const express = require("express");
 
-const router = express.Router();
+const router = express.Router({caseSensitive: true, strict: "enabled"}); //case sensitive routes, strict means /foo and /foo/ are different routes
 
 const clientController = require("../controllers/clientControllers"); // call client controller file.
 
