@@ -25,13 +25,29 @@ app.use(
     ]
   })
 ); // middleware, Cross origin resouce sharing. So you can get data from different name or portal.
-app.use(express.json()); // middleware to convert automatically to JSON.
-app.use(bodyParser.urlencoded({ extended: false })); // Middleware for parsing.
-process.env.NODE_ENV !== "prod" && app.use(logger("dev")); //morgan logger, gives logging info
-app.use(
-  express.static(path.join(__dirname, "..", "public"), { maxAge: "30d" })
-);
-// Serve public folder static files, and cache for 30days
+app.use(express.json({  //parse incoming requests with JSON payloads based on body-parser
+  inflate: true,  //enables handling compressed bodies
+  limit: "20mb",  //sets max req.body size
+  strict: true    //only accepting arrays and objects
+}));
+app.use(bodyParser.urlencoded({   // Middleware for parsing.
+  extended: true, //parses url-encoded data with qs library.  set to false for querystring library
+  inflate: true,  //handles compressed bodies
+  limit: "20mb" //controls max body size
+   })); 
+process.env.NODE_ENV !== "production" && app.use(logger("dev")); //morgan logger, gives logging info
+
+const staticOptions = {
+  dotfiles: "ignore", //if files starting with "." do not exist, respond with 404 and call next()
+  redirect: true,     //redirect to trailing / when pathname is a directory
+  maxAge: "30d"       //sets max-age property of the Cache-Control header
+}
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.resolve(__dirname, '..', 'public'), staticOptions));
+  app.get('*', (req, res) => { res.sendFile(path.resolve(__dirname, '/public/index.html'))
+  })
+}
 
 app.use("/student", studentRouter); // sends the request to the router in roots file.
 app.use("/client", clientRouter); // sends the request to the router in roots file. //STARTS HERE AFTER POST FROM FE

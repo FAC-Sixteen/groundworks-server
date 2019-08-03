@@ -84,3 +84,13 @@ exports.brief_findById = async (req, res) => {
     res.json({ message: err });
   }
 };
+
+//send student skill(s) as array of strings in req.body to return all matches
+exports.student_match = async (req, res) => {
+  try {
+    const studentMatches = await GWJob.find({"studentSkills": {$in: req.body} });
+    res.json(studentMatches);
+  } catch (err) {
+    res.json({ message: err });
+  }
+}

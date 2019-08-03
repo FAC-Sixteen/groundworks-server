@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const GWJob = require('../database/schemas/GWJob');
 const User = require("../database/schemas/User");
 const GWStudent = require('../database/schemas/GWStudent');
 const registerValidation = require('../authentication/validation');
@@ -144,3 +145,4 @@ exports.userValidator = (req, res) => {
     res.json({ message: err })
   }
 }
+
