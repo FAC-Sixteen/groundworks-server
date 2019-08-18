@@ -7,6 +7,7 @@ const registerValidation = require('../authentication/validation');
 const encryption = require('../authentication/encryption');
 const authentication = require('../authentication/validation');
 
+
 //get all student documents from database
 exports.getAllStudents = async (req, res) => {
   try {
@@ -58,11 +59,15 @@ exports.postStudentSignUp = async (req, res) => {
   }
 };
 
+
 exports.student_findById = async (req, res) => {
+
   try {
-    console.log(req.params);
     const profile = await GWStudent.findById(req.params.studentID);
-    res.json(profile);
+    const briefs = await GWJob.find({"_id": {$in: profile.completedJobs } });
+    const result = {profile, briefs};
+
+    res.json(result);
   } catch (err) {
     res.json({ message: err });
   }
@@ -73,7 +78,8 @@ exports.student_update = async (req, res) => {
     const update = await User.findByIdAndUpdate(
       req.params.studentID,
       req.body.userName
-    ); //update
+    ); 
+
     res.json(update);
   } catch (err) {
     res.json({ message: err });
@@ -134,7 +140,7 @@ exports.getAllStudentRegisters = async (req, res) => {
   }
 };
 
-exports.userValidator = (req, res) => {
+exports.userValidator = async (req, res) => {
   try {
     const userInfo = {
       email: req.body.email,
@@ -145,4 +151,3 @@ exports.userValidator = (req, res) => {
     res.json({ message: err })
   }
 }
-

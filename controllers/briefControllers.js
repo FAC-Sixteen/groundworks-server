@@ -1,11 +1,9 @@
 const Brief = require('../database/schemas/Brief');
-const GWJob = require('../database/schemas/GWJob.js');
-const GWStudent = require('../database/schemas/GWStudent.js');
+const GWJob = require('../database/schemas/GWJob');
+const GWStudent = require('../database/schemas/GWStudent');
 
 exports.getAllBriefs = async (req, res) => {
-  console.log('inside query')
   try {
-    console.log("inside try: ", req)
     const briefs = await GWJob.find();
     res.json(briefs);
   } catch (err) {
@@ -14,7 +12,6 @@ exports.getAllBriefs = async (req, res) => {
 };
 
 exports.postClientNewBrief = async (req, res) => {
-  console.log("req", req.body);
   try {
     const newBriefData = new GWJob({
       companyName: req.body.companyName,
@@ -67,7 +64,6 @@ exports.brief_findByStudent = async (req, res) => {
 
 exports.brief_completedJobs = async (req, res) => {
   try {
-    console.log("Request params: ", req.params);
     const profile = await GWStudent.findById(req.params.studentID);
     res.json(profile);
   } catch (err) {
@@ -77,13 +73,24 @@ exports.brief_completedJobs = async (req, res) => {
 
 exports.brief_findById = async (req, res) => {
   try {
-    console.log(req.params)
     const profile = await GWJob.findById(req.params.briefID);
     res.json(profile);
   } catch (err) {
     res.json({ message: err });
   }
 };
+
+//send array of jobs (say, completed or current) and return all
+exports.brief_findArrayById = async (req, res) => {
+  try {
+    // const completed = await GWStudent.find({"_id": ObjectId("5d12838ce7b2983aacbceac4")}, {"completedJobs": 1, "_id": 0});
+    const briefs = await GWJob.find({"_id": {$in: ["5d1297512c68bc49060bce7b", "5d1297092c68bc49060bce7a"] } });
+
+    res.json(briefs);
+  } catch (err) {
+    res.json({ message: err });
+  }
+}
 
 //send student skill(s) as array of strings in req.body to return all matches
 exports.student_match = async (req, res) => {

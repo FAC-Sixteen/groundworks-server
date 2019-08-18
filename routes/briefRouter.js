@@ -14,4 +14,6 @@ router.get("/get-brief/:briefID", briefController.brief_findById);
 
 router.get("/student-match", briefController.student_match);  //query DB for skills match on login, render JobOffer on student dashboard (handle if none)
 
+router.post("/brief-array", briefController.brief_findArrayById);  //query DB for array of jobs, such as 'current' or 'completed'
+
 module.exports = router;

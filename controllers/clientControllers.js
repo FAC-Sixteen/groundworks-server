@@ -1,4 +1,4 @@
-const Brief = require("../database/schemas/Brief");
+const Brief = require("../database/schemas/GWJob");
 const User = require("../database/schemas/User");
 //get all client documents from database
 exports.getAllClients = async (req, res) => {
@@ -55,6 +55,7 @@ exports.postClientNewBrief = async (req, res) => {
 exports.getAllBriefs = async (req, res) => {
   try {
     const briefs = await Brief.find();
+    console.log("briefs: ", briefs)
     res.json(briefs);
   } catch (err) {
     res.json({ message: err });
