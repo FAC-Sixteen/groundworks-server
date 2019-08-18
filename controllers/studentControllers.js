@@ -61,22 +61,15 @@ exports.postStudentSignUp = async (req, res) => {
 
 exports.student_findById = async (req, res) => {
   try {
-    const profile = await GWStudent.findById(req.params.studentID);
+    const profile = await GWStudent.findById(req.params.studentID);   //return student profile data from database
 
-    const newJob = await GWJob.find({"studentSkills": { $in: profile.skills }});
-    const currentJob = await GWJob.find({"_id": { $in: profile.currentJobs }});
-    const completedBriefs = await GWJob.find({"_id": { $in: profile.completedJobs }});
+    const newJob = await GWJob.find({"studentSkills": { $in: profile.skills }});  //return new Job offer, matching to student skills from profile
+    const currentJob = await GWJob.find({"_id": { $in: profile.currentJobs }});   //return current Job(s), matching to array of current jobs in profile
+    const completedBriefs = await GWJob.find({"_id": { $in: profile.completedJobs }});  //return completed Job(s), matching to array of completed jobs in profile
     
-    const result = {profile, newJob, currentJob, completedBriefs};
-
-    console.log("profile.currentJobs: ", profile.currentJobs);
-    console.log("currentJobs: ", currentJob);
-
-    console.log("profile.completedBriefs: ", profile.completedJobs);
-    console.log("completedBriefs: ", completedBriefs);
+    const result = {profile, newJob, currentJob, completedBriefs};  //combine all above queries into one object, res.json() can only be sent once
 
     res.json(result);
-
   } catch (err) {
     res.json({ message: err });
   }
