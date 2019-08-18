@@ -64,8 +64,11 @@ exports.student_findById = async (req, res) => {
 
   try {
     const profile = await GWStudent.findById(req.params.studentID);
-    const briefs = await GWJob.find({"_id": {$in: profile.completedJobs } });
-    const result = {profile, briefs};
+    const completedBriefs = await GWJob.find({"_id": {$in: profile.completedJobs } });
+    const currentJobs = await GWJob.find({"_id": {$in: profile.currentJobs} });
+    const result = {profile, currentJobs, completedBriefs};
+
+    console.log("result: ", result);
 
     res.json(result);
   } catch (err) {
