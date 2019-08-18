@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
 
-const Students = require('../database/schemas/User');
+const Students = require('../database/schemas/GWStudent');
 
 const findUser = async (userEmail, res) => {
   try {
