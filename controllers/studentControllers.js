@@ -59,18 +59,24 @@ exports.postStudentSignUp = async (req, res) => {
   }
 };
 
-
 exports.student_findById = async (req, res) => {
-
   try {
     const profile = await GWStudent.findById(req.params.studentID);
-    const completedBriefs = await GWJob.find({"_id": {$in: profile.completedJobs } });
-    const currentJobs = await GWJob.find({"_id": {$in: profile.currentJobs} });
-    const result = {profile, currentJobs, completedBriefs};
 
-    console.log("result: ", result);
+    const newJob = await GWJob.find({"studentSkills": { $in: profile.skills }});
+    const currentJob = await GWJob.find({"_id": { $in: profile.currentJobs }});
+    const completedBriefs = await GWJob.find({"_id": { $in: profile.completedJobs }});
+    
+    const result = {profile, newJob, currentJob, completedBriefs};
+
+    console.log("profile.currentJobs: ", profile.currentJobs);
+    console.log("currentJobs: ", currentJob);
+
+    console.log("profile.completedBriefs: ", profile.completedJobs);
+    console.log("completedBriefs: ", completedBriefs);
 
     res.json(result);
+
   } catch (err) {
     res.json({ message: err });
   }
